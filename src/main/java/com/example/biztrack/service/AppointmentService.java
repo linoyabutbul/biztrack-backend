@@ -7,7 +7,6 @@ import com.example.biztrack.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 @Service
@@ -52,11 +51,10 @@ public class AppointmentService {
         LocalDateTime happenedAt = null;
         if (appointmentTimeStr != null && !appointmentTimeStr.isBlank()) {
             try {
-                // אם GHL מחזיר פורמט ISO (למשל "2025-11-28T19:00:00Z")
-                // נדאג לעדכן את זה לפי הפורמט האמיתי ברגע שיהיה לנו JSON מה-Webhook
+                // כרגע LocalDateTime.parse – נעדכן לפי הפורמט האמיתי כשה-Webhook מגוהיילבל יהיה ברור
                 happenedAt = LocalDateTime.parse(appointmentTimeStr);
             } catch (Exception e) {
-                // אם הפורמט שונה – נשאיר null, נעדכן כשנדע את הפורמט האמיתי
+                // אם הפורמט שונה – נשאיר null בינתיים
             }
         }
 
@@ -65,7 +63,7 @@ public class AppointmentService {
         appointment.setClient(client);
         appointment.setExternalId(externalId);
         appointment.setSource(source);
-        appointment.setHappenedAt(happenedAt); // 👈 כאן השינוי – בלי setAppointmentTime
+        appointment.setHappenedAt(happenedAt);
 
         appointmentRepository.save(appointment);
     }

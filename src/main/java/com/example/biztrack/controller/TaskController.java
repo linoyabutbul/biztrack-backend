@@ -13,78 +13,46 @@ public class TaskController {
 
     private final TaskRepository taskRepository;
 
+    // Constructor injection – הכי תקין! ↓↓↓
     public TaskController(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
-    // Get today's checklist
     @GetMapping("/today")
     public List<Task> getTodayTasks() {
         LocalDate today = LocalDate.now();
         return taskRepository.findByCompletedDateIsNullOrCompletedDate(today);
     }
 
-    // Get all (for debug)
-    @GetMapping
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
-
-    // Create new task
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        task.setId(null);
-        task.setStatus(task.getStatus() == null ? "TODO" : task.getStatus());
-        task.setCreatedDate(LocalDate.now());
-        if (task.getSubTasksCompleted() == null) {
-            task.setSubTasksCompleted(0);
-        }
-        if (task.getPriority() == null || task.getPriority().isBlank()) {
-            task.setPriority("NORMAL"); // ברירת מחדל
-        }
         return taskRepository.save(task);
     }
 
-    // Update entire task (for editing)
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task updated) {
-        Task existing = taskRepository.findById(id)
+        Task t = taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Task not found"));
 
-        if (updated.getTitle() != null) existing.setTitle(updated.getTitle());
-        if (updated.getStatus() != null) {
-            existing.setStatus(updated.getStatus());
-            if ("DONE".equalsIgnoreCase(updated.getStatus())) {
-                existing.setCompletedDate(LocalDate.now());
-            }
-        }
-        if (updated.getSubTasksCompleted() != null) {
-            existing.setSubTasksCompleted(updated.getSubTasksCompleted());
-        }
-        if (updated.getSubTasksTotal() != null) {
-            existing.setSubTasksTotal(updated.getSubTasksTotal());
-        }
-        if (updated.getStartDate() != null) existing.setStartDate(updated.getStartDate());
-        if (updated.getDueDate() != null) existing.setDueDate(updated.getDueDate());
-        if (updated.getAssignee() != null) existing.setAssignee(updated.getAssignee());
-        if (updated.getAddress() != null) existing.setAddress(updated.getAddress());
-        if (updated.getNavUrl() != null) existing.setNavUrl(updated.getNavUrl());
-        if (updated.getPhone() != null) existing.setPhone(updated.getPhone());
-        if (updated.getEmail() != null) existing.setEmail(updated.getEmail());
-        if (updated.getNotes() != null) existing.setNotes(updated.getNotes());
-        if (updated.getAttachmentUrl() != null) existing.setAttachmentUrl(updated.getAttachmentUrl());
-        if (updated.getPriority() != null) existing.setPriority(updated.getPriority());
+        if (updated.getTitle() != null) t.setTitle(updated.getTitle());
+        if (updated.getStatus() != null) t.setStatus(updated.getStatus());
+        if (updated.getSubTasksCompleted() != null) t.setSubTasksCompleted(updated.getSubTasksCompleted());
+        if (updated.getSubTasksTotal() != null) t.setSubTasksTotal(updated.getSubTasksTotal());
+        if (updated.getStartDate() != null) t.setStartDate(updated.getStartDate());
+        if (updated.getDueDate() != null) t.setDueDate(updated.getDueDate());
+        if (updated.getPriority() != null) t.setPriority(updated.getPriority());
+        if (updated.getAssignee() != null) t.setAssignee(updated.getAssignee());
+        if (updated.getAddress() != null) t.setAddress(updated.getAddress());
+        if (updated.getEmail() != null) t.setEmail(updated.getEmail());
+        if (updated.getPhone() != null) t.setPhone(updated.getPhone());
+        if (updated.getNotes() != null) t.setNotes(updated.getNotes());
+        if (updated.getAttachmentUrl() != null) t.setAttachmentUrl(updated.getAttachmentUrl());
 
-        return taskRepository.save(existing);
+        return taskRepository.save(t);
     }
 
-    // Delete task
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         taskRepository.deleteById(id);
     }
-
-
-
-
 }

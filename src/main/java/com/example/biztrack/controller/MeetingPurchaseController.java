@@ -3,10 +3,9 @@ package com.example.biztrack.controller;
 import com.example.biztrack.model.Client;
 import com.example.biztrack.model.MeetingPurchase;
 import com.example.biztrack.model.MeetingPurchaseSummary;
-import com.example.biztrack.repository.ClientRepository;
 import com.example.biztrack.repository.MeetingPurchaseRepository;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.biztrack.repository.ClientRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;

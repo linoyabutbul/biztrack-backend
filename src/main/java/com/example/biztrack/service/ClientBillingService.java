@@ -1,12 +1,9 @@
 package com.example.biztrack.service;
 
 import com.example.biztrack.model.*;
-import com.example.biztrack.repository.ClientRepository;
-import com.example.biztrack.repository.IncomeRepository;
-import com.example.biztrack.repository.MeetingPurchaseRepository;
+import com.example.biztrack.repository.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; // 👈 להוסיף import
-
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -18,6 +15,7 @@ public class ClientBillingService {
     private final MeetingPurchaseRepository meetingPurchaseRepository;
     private final IncomeRepository incomeRepository;
     private final MeetingStatsService meetingStatsService;
+
 
     public ClientBillingService(ClientRepository clientRepository,
                                 MeetingPurchaseRepository meetingPurchaseRepository,

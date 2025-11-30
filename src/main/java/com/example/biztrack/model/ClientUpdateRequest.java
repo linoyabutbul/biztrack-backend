@@ -1,11 +1,15 @@
 package com.example.biztrack.model;
 
+import java.math.BigDecimal;
+
 public class ClientUpdateRequest {
+
 
     private String name;
     private String email;
     private String city;
     private String notes;
+    private BigDecimal pricePerMeeting;
 
     public ClientUpdateRequest() {
     }
@@ -21,4 +25,7 @@ public class ClientUpdateRequest {
 
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    public BigDecimal getPricePerMeeting() { return pricePerMeeting; }
+    public void setPricePerMeeting(BigDecimal pricePerMeeting) { this.pricePerMeeting = pricePerMeeting; }
 }

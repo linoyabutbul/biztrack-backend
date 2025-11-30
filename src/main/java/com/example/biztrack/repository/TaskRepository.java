@@ -1,11 +1,9 @@
 package com.example.biztrack.repository;
-
-import com.example.biztrack.model.Task;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
+import com.example.biztrack.model.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {

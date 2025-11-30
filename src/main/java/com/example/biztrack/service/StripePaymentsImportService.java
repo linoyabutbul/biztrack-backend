@@ -1,9 +1,7 @@
 package com.example.biztrack.service;
 
-import com.example.biztrack.model.Client;
-import com.example.biztrack.model.Income;
-import com.example.biztrack.repository.ClientRepository;
-import com.example.biztrack.repository.IncomeRepository;
+import com.example.biztrack.model.*;
+import com.example.biztrack.repository.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;

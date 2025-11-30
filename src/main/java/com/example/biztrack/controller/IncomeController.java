@@ -2,8 +2,8 @@ package com.example.biztrack.controller;
 
 import com.example.biztrack.model.Client;
 import com.example.biztrack.model.Income;
-import com.example.biztrack.repository.ClientRepository;
 import com.example.biztrack.repository.IncomeRepository;
+import com.example.biztrack.repository.ClientRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

@@ -1,10 +1,7 @@
 package com.example.biztrack.controller;
-
-import com.example.biztrack.model.Client;
-import com.example.biztrack.model.ClientUpdateRequest;
-import com.example.biztrack.repository.ClientRepository;
+import com.example.biztrack.repository.*;
+import com.example.biztrack.model.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -36,7 +33,7 @@ public class ClientController {
         return clientRepository.save(client);
     }
 
-    // ✅ עדכון לקוח קיים – זה מה שהפרונט משתמש בו
+    //  עדכון לקוח קיים - מה שהפרונט משתמש בו
     @PutMapping("/{id}")
     public Client updateClient(@PathVariable Long id,
                                @RequestBody ClientUpdateRequest request) {
@@ -56,11 +53,15 @@ public class ClientController {
         if (request.getNotes() != null) {
             client.setNotes(request.getNotes());
         }
+        if (request.getPricePerMeeting() != null) {
+            client.setPricePerMeeting(request.getPricePerMeeting());
+        }
+
 
         return clientRepository.save(client);
     }
 
-    // מחיקת לקוח (לעתיד, אם תרצי)
+    // מחיקת לקוח
     @DeleteMapping("/{id}")
     public void deleteClient(@PathVariable Long id) {
         clientRepository.deleteById(id);

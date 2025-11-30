@@ -1,10 +1,8 @@
 package com.example.biztrack.service;
 
 import com.example.biztrack.model.*;
-import com.example.biztrack.repository.ExpenseRepository;
-import com.example.biztrack.repository.IncomeRepository;
+import com.example.biztrack.repository.*;
 import com.example.biztrack.repository.MeetingPurchaseRepository;
-import com.example.biztrack.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
