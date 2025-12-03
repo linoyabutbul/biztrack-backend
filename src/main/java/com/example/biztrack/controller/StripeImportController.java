@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/import")
+
 public class StripeImportController {
 
     private final StripePaymentsImportService stripePaymentsImportService;
@@ -17,7 +18,7 @@ public class StripeImportController {
     }
 
     @PostMapping("/stripe-payments")
-    public ResponseEntity<StripeImportResult> importStripePayments(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<StripePaymentsImportService.StripeImportResult> importStripePayments(@RequestParam("file") MultipartFile file) {
         StripeImportResult result = stripePaymentsImportService.importStripePayments(file);
         return ResponseEntity.ok(result);
     }

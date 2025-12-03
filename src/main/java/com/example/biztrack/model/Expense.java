@@ -23,14 +23,9 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
-
     private BigDecimal amount;
-
-    private String category;      // למשל: RENT / ADS / SOFTWARE
-
+    private String category;      //  RENT / ADS / SOFTWARE
     private LocalDate date;
-
     private String paymentMethod; // CREDIT / CASH / TRANSFER
 }
