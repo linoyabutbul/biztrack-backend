@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # בניית הפרויקט באמצעות הפקודה הגלובלית mvn (ולא ./mvnw)
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -Dlombok.version=1.18.30
 
 # שלב 2: יצירת סביבת ההרצה הקלה
 FROM eclipse-temurin:17-jre
