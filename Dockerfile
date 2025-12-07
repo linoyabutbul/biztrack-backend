@@ -5,8 +5,11 @@ WORKDIR /app
 # העתקת קבצי הפרויקט
 COPY . .
 
-# בניית הפרויקט באמצעות הפקודה הגלובלית mvn (ולא ./mvnw)
-RUN mvn clean package -DskipTests -Dlombok.version=1.18.30
+# תיקון אוטומטי: החלפת המשתנה הבעייתי ב-pom.xml בגרסה קשיחה
+RUN sed -i 's/${lombok.version}/1.18.30/g' pom.xml
+
+# בניית הפרויקט באמצעות הפקודה הגלובלית mvn
+RUN mvn clean package -DskipTests
 
 # שלב 2: יצירת סביבת ההרצה הקלה
 FROM eclipse-temurin:17-jre
