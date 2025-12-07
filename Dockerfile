@@ -1,25 +1,13 @@
-# שלב 1: בנייה באמצעות תמונה רשמית של Maven (חוסך בעיות mvnw)
+# שלב 1: בנייה
 FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# העתקת קבצי הפרויקט
 COPY . .
-
-# תיקון אוטומטי: החלפת המשתנה הבעייתי ב-pom.xml בגרסה קשיחה
-RUN sed -i 's/${lombok.version}/1.18.30/g' pom.xml
-
-# בניית הפרויקט באמצעות הפקודה הגלובלית mvn
+# כעת הפקודה תעבוד חלק כי ה-pom.xml תקין
 RUN mvn clean package -DskipTests
 
-# שלב 2: יצירת סביבת ההרצה הקלה
+# שלב 2: הרצה
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-
-# העתקת ה-JAR שנוצר בשלב הראשון
 COPY --from=build /app/target/*.jar app.jar
-
-# חשיפת הפורט
 EXPOSE 8080
-
-# הפעלת האפליקציה
 ENTRYPOINT ["java", "-jar", "app.jar"]
