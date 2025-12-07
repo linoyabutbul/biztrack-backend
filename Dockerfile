@@ -1,25 +1,22 @@
-# Stage 1: Build the application using Maven Wrapper
-FROM eclipse-temurin:17-jdk AS build
+# שלב 1: בנייה באמצעות תמונה רשמית של Maven (חוסך בעיות mvnw)
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy Maven Wrapper and project files
+# העתקת קבצי הפרויקט
 COPY . .
 
-# Ensure mvnw is executable
-RUN chmod +x mvnw
+# בניית הפרויקט באמצעות הפקודה הגלובלית mvn (ולא ./mvnw)
+RUN mvn clean package -DskipTests
 
-# Build the application (skip tests)
-RUN ./mvnw clean package -DskipTests
-
-# Stage 2: Run the built JAR
-FROM eclipse-temurin:17-jdk
+# שלב 2: יצירת סביבת ההרצה הקלה
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /app/target/biztrack-0.0.1-SNAPSHOT.jar app.jar
+# העתקת ה-JAR שנוצר בשלב הראשון
+COPY --from=build /app/target/*.jar app.jar
 
-# Expose the port used by Spring Boot
+# חשיפת הפורט
 EXPOSE 8080
 
-# Run the app
+# הפעלת האפליקציה
 ENTRYPOINT ["java", "-jar", "app.jar"]
